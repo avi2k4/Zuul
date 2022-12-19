@@ -44,7 +44,12 @@ void Room::addExit(char * exitName, Room * destination) {
 }
 
 Room * Room::getExitDestination(char * exitName) {
-	return this->exits[exitName];
+	for (map<char *, Room *>::iterator it = this->exits.begin(); it != this->exits.end(); it++) {
+		cout << it->first << endl;
+		if (strcmp(it->first, exitName) == 0) {
+			return it->second;
+		}
+	}
 }
 
 void Room::print() {
