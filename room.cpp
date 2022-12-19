@@ -24,19 +24,46 @@ void Room::addItem(Item * item) {
 
 void Room::removeItem(Item * item) {
 	for (vector<Item *>::iterator it = this->items.begin(); it != this->items.end(); it++) {
-		if (strcpy((*it)->getName(), item->getName()) == 0) {
+		if (strcmp((*it)->getName(), item->getName()) == 0) {
 			this->items.erase(it);
 			return;
 		}
 	}
 }
 
-void Room::addExit(pair<char *, Room *> exit) {
+vector<Item *> Room::getItems() {
+	return this->items;
+}
 
+Item * Room::getItem(int index) {
+	return this->items[index];
+}
+
+void Room::addExit(char * exitName, Room * destination) {
+	this->exits[exitName] = destination;
+}
+
+Room * Room::getExitDestination(char * exitName) {
+	return this->exits[exitName];
 }
 
 void Room::print() {
-	cout << "Hello man" << endl;
+	cout << "\n---------------------------------------------------------" << endl;
+	cout << "You are currently in: " << this->name << endl;
+	cout << this->description << endl;
+	cout << "\nItems:" << endl;
+
+	int i = 1;
+	for (vector<Item *>::iterator it = this->items.begin(); it != this->items.end(); it++, i++) {
+		cout << "[" << i << "] Name: " << (*it)->getName() << endl;		
+	}
+
+	int x = 1;
+	cout << "Exits: " << endl;
+	for (map<char *, Room *>::iterator it = this->exits.begin(); it != this->exits.end(); it++, x++) {
+		cout << "[" << x << "] Name: " << it->first << ", destination: " << it->second->getName() << endl;
+	}
+	cout << "---------------------------------------------------------\n" << endl;
 }
 
 

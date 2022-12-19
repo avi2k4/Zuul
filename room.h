@@ -15,7 +15,10 @@ class Room {
 		char * getDescription();
 		void addItem(Item * item);
 		void removeItem(Item * item);
-		void addExit(pair<char *, Room *> exit);
+		vector<Item *> getItems();
+		Item * getItem(int index);
+		void addExit(char * exitName, Room * destination);
+		Room * getExitDestination(char * exitName);
 		void print();
 
 	private:
